@@ -59,8 +59,17 @@ class SamlPostResponse extends Response
 <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
     <title>POST data</title>
+    <script>
+        // https://support.pingidentity.com/s/article/Safari-Users-are-unable-to-complete-Authentication-process-when-SSO-is-initiated-from-an-embedded-webpage
+        function setADCTrustCookie(cname,cvalue,exdays) {
+            var d = new Date();
+            d.setTime(d.getTime() + (exdays*24*60*60*1000));
+            var expires = "expires=" + d.toGMTString();
+            document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+        }
+    </script>
 </head>
-<body onload="document.getElementById('a-very-unique-input-id#lightSAML').click();">
+<body onload="setADCTrustCookie('adctrust','AllowSafariToTrustEmbeddedLoginForm','1');document.getElementById('a-very-unique-input-id#lightSAML').click();">
 
     <noscript>
         <p><strong>Note:</strong> Since your browser does not support JavaScript, you must press the button below once to proceed.</p>
